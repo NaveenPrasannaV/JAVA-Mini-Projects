@@ -18,7 +18,7 @@ public class DataBase
 		try 
 		{
 			con = DriverManager.getConnection(url,user,pwd);
-			System.out.println("Connecting with server...");
+			//System.out.println("Connecting with server...");
 		} 
 		catch (SQLException e) 
 		{
@@ -31,7 +31,7 @@ public class DataBase
 		try 
 		{
 			con.close();
-			System.out.println("Disconnecting with server...");
+			//System.out.println("Disconnecting with server...");
 		} 
 		catch (SQLException e) 
 		{
@@ -154,4 +154,37 @@ public class DataBase
 	    p1.setLong(2, cardno);
 	    p1.execute();
 	}
+	
+	public String merchantverify(String mupi) throws SQLException
+	{
+		String u2 = "Select * from account where upiid = ?";
+		PreparedStatement p2 = con.prepareStatement(u2);
+		p2.setString(1, mupi);
+		ResultSet res1 = p2.executeQuery();
+		res1.next();
+		String name = res1.getString("name");
+		return name;
+	}
+	
+	public double merchantbal(String mupi) throws SQLException
+	{
+		String u2 = "Select * from account where upiid = ?";
+		PreparedStatement p2 = con.prepareStatement(u2);
+		p2.setString(1, mupi);
+		ResultSet res1 = p2.executeQuery();
+		res1.next();
+		double mbal = res1.getDouble("bal");
+		return mbal;
+	}
+	
+	public void updatembal(double mbal, String mupi) throws SQLException
+	{
+		String u1 = "update account set bal = ? where upiid = ?";
+	    PreparedStatement p1 =	con.prepareStatement(u1);
+	    p1.setDouble(1, mbal);
+	    p1.setString(2, mupi);
+	    p1.execute();
+	}
+	
+	
 }

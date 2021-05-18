@@ -67,7 +67,7 @@ public class CreateAcc
 		System.out.print("Re-enter Account Password: ");
 		String d = s1.next();
 		
-		if(b.equalsIgnoreCase(d) == true)
+		if(b.equals(d) == true)
 		{
 			if(b.length() >= 10)
 			{
